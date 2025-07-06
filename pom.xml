@@ -39,6 +39,8 @@
         <durid.version>1.2.18</durid.version>
         <hutool.version>5.8.2</hutool.version>
         <springfox.version>3.0.0</springfox.version>
+        <commonbase.version>1.0-SNAPSHOT</commonbase.version>
+
     </properties>
     <packaging>pom</packaging>
 
@@ -90,6 +92,12 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-boot-starter</artifactId>
                 <version>${springfox.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.powernode</groupId>
+                <artifactId>common-base</artifactId>
+                <version>${commonbase.version}</version>
             </dependency>
 
         </dependencies>
