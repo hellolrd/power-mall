@@ -74,8 +74,8 @@ public class AuthSecurityConfig extends WebSecurityConfigurerAdapter {
             String token= UUID.randomUUID().toString();
             String userJsonStr= JSONObject.toJSONString(authentication.getPrincipal());
             //将用户信息存入redis
-            stringRedisTemplate.opsForValue().set(AuthConstant.LOGIN_TOKEN_PREFIX + token, userJsonStr, Duration.ofSeconds(AuthConstant.token_time));
-            LoginResult loginResult = new LoginResult(token, AuthConstant.token_time);
+            stringRedisTemplate.opsForValue().set(AuthConstant.LOGIN_TOKEN_PREFIX + token, userJsonStr, Duration.ofSeconds(AuthConstant.TOKEN_TIME));
+            LoginResult loginResult = new LoginResult(token, AuthConstant.TOKEN_TIME);
             Result<Object> result = Result.success(loginResult);
 
             ObjectMapper objectMapper = new ObjectMapper();
