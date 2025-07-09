@@ -41,6 +41,7 @@
         <springfox.version>3.0.0</springfox.version>
         <commonbase.version>1.0-SNAPSHOT</commonbase.version>
         <fastjson.version>1.2.80</fastjson.version>
+        <commoncore.version>1.0-SNAPSHOT</commoncore.version>
 
     </properties>
     <packaging>pom</packaging>
@@ -104,6 +105,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.powernode</groupId>
+                <artifactId>common-core</artifactId>
+                <version>${commoncore.version}</version>
             </dependency>
 
         </dependencies>
