@@ -50,7 +50,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         int i = sysRoleMapper.insert(sysRole);
         if(i > 0) {
             // 清除角色缓存
-            Long roleId = sysRole.getRoleId();
+            Long roleId = sysRoleMapper.selectOne(new LambdaQueryWrapper<SysRole>()
+                    .eq(SysRole::getRoleName, sysRole.getRoleName())
+            ).getRoleId();
             List<SysRoleMenu> sysRoleMenuList = new ArrayList<>();
             List<Long> menuIdlist = sysRole.getMenuIdList();
             if(menuIdlist != null && !menuIdlist.isEmpty()) {
