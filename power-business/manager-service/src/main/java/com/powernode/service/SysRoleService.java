@@ -9,4 +9,8 @@ public interface SysRoleService extends IService<SysRole>{
 
 
     List<SysRole> querySysRoleList();
+
+    Boolean saveSysRole(SysRole sysRole);
+
+
 }

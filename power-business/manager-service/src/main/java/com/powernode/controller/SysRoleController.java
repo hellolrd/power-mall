@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,5 +45,12 @@ public class SysRoleController {
 
 
              return Result.success(page);
+         }
+         @ApiOperation(value = "新增角色")
+         @PostMapping
+         @PreAuthorize("hasAuthority('sys:role:save')")
+         public Result<String> saveSysRole(@RequestBody SysRole sysRole) {
+               Boolean res=sysRoleService.saveSysRole(sysRole);
+             return Result.success(null);
          }
 }

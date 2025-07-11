@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -56,4 +58,10 @@ public class SysRole implements Serializable {
     @TableField(value = "create_time")
     @ApiModelProperty(value="创建时间")
     private Date createTime;
+
+    //新增角色
+    @TableField(exist = false)
+    @ApiModelProperty("权限集合id")
+    private List<Long> menuIdList;
+
 }
