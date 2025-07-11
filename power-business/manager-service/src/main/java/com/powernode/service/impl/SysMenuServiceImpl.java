@@ -1,5 +1,6 @@
 package com.powernode.service.impl;
 
+import com.powernode.constant.ManagerConstants;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
 
         return roots;
+    }
+
+
+    @Override
+    @Cacheable(key= ManagerConstants.SYS_ALL_MENU_KEY)
+    public List<SysMenu> queryAllSysMenuList() {
+        return sysMenuMapper.selectList(null);
     }
 }
