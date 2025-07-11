@@ -1,6 +1,7 @@
 package com.powernode.constant;
 
 public enum BusinessEnum {
+    SUCCESS(200,"操作成功"),
     OPERATION_FAIL(-1,"操作失败"),
     SERVER_INNER_ERROR(9999,"服务内部异常"),
     UN_AUTHORIZATION(401,"未授权"),

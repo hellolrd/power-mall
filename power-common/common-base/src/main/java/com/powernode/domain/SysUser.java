@@ -1,13 +1,12 @@
 package com.powernode.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,7 +38,7 @@ public class SysUser implements Serializable {
     /**
      * 密码
      */
-    @TableField(value = "`password`")
+    @TableField(value = "`password`",updateStrategy = FieldStrategy.NOT_EMPTY)
     @ApiModelProperty(value="密码")
     private String password;
 
@@ -84,4 +83,8 @@ public class SysUser implements Serializable {
     @TableField(value = "shop_id")
     @ApiModelProperty(value="用户所在的商城Id")
     private Long shopId;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value ="角色id集合" )
+    private List<Long> roleIdList;
 }

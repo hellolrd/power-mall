@@ -1,5 +1,6 @@
 package com.powernode.model;
 
+import com.powernode.constant.AuthConstant;
 import com.powernode.constant.BusinessEnum;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,8 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> success(T data) {
         Result<T> result = new Result<>();
+        result.setCode(BusinessEnum.SUCCESS.getCode());
+        result.setMsg(BusinessEnum.SUCCESS.getMsg());// 成功状态码
         result.setData(data); // 成功状态码
         return result;
     }
@@ -41,4 +44,11 @@ public class Result<T> implements Serializable {
     }
 
 
+    public static Result<String> handle(boolean flag) {
+        Result<Object> result = new Result<>();
+        if(flag){
+            return Result.success("操作成功" );
+        }
+        return Result.fail(BusinessEnum.OPERATION_FAIL);
+    }
 }

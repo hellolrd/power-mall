@@ -54,4 +54,5 @@ public interface AuthConstant {
     Long TOKEN_EXPIRE_THRESHOLD_TIME = 60*60L;
 
     String MEMBER_USER_LOGIN ="memeberUserLogin";
+
 }

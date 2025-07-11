@@ -66,6 +66,6 @@ public class SecurityUser implements UserDetails {
                     finalPermsSet.add(perm);
                 }
             } );
-           return perms;
+           return finalPermsSet;
         }
     }
