@@ -3,6 +3,7 @@ package com.powernode.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.powernode.constant.ManagerConstants;
 import com.powernode.domain.SysRoleMenu;
+import com.powernode.mapper.SysRoleMenuMapper;
 import com.powernode.service.SysRoleMenuService;
 import com.powernode.util.AuthUtils;
 import org.springframework.cache.annotation.CacheConfig;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.powernode.mapper.SysRoleMapper;
 import com.powernode.domain.SysRole;
@@ -28,6 +31,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private SysRoleMapper sysRoleMapper;
     @Autowired
     private SysRoleMenuService sysRoleMenuService;
+
+    @Autowired
+    private SysRoleMenuMapper sysRoleMenuMapper;
     @Override
     @Cacheable(key = ManagerConstants.SYS_ALL_ROLE_KEY)
     public List<SysRole> querySysRoleList() {
@@ -59,5 +65,19 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             }
         }
         return i>0;
+    }
+
+    @Override
+    public SysRole querySysRoleInfoByRoleId(Long roleId) {
+        SysRole sysRole = sysRoleMapper.selectById(roleId);
+        if(sysRole != null) {
+            // 查询角色对应的菜单ID列表
+            List<Long> menuIdList = sysRoleMenuMapper.selectList(new LambdaQueryWrapper<SysRoleMenu>()
+                    .eq(SysRoleMenu::getRoleId, roleId)
+            ).stream()
+                    .map(SysRoleMenu::getMenuId).collect(Collectors.toList());
+            sysRole.setMenuIdList(menuIdList);
+        }
+        return sysRole;
     }
 }

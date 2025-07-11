@@ -13,4 +13,5 @@ public interface SysRoleService extends IService<SysRole>{
     Boolean saveSysRole(SysRole sysRole);
 
 
+    SysRole querySysRoleInfoByRoleId(Long roleId);
 }
