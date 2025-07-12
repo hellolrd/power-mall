@@ -52,4 +52,12 @@ public class SysMenuController {
         Boolean saved=sysMenuService.saveSysMenu(sysMenu);
         return Result.handle(saved);
     }
+
+    @ApiOperation(value = "根据标识查询菜单权限信息")
+    @GetMapping("info/{menuId}")
+    @PreAuthorize("hasAuthority('sys:user:info')")
+    public Result<SysMenu> loadSysMenuInfo(@PathVariable Long menuId) {
+        SysMenu sysMenu = sysMenuService.getById(menuId);
+        return Result.success(sysMenu);
+    }
 }
