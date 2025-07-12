@@ -62,4 +62,20 @@ public class SysRoleController {
                SysRole sysRole = sysRoleService.querySysRoleInfoByRoleId(roleId);
              return Result.success(sysRole);
          }
+
+         @ApiOperation(value = "修改角色信息")
+         @PutMapping
+         @PreAuthorize("hasAuthority('sys:role:update')")
+         public Result<String> modifySysRole(@RequestBody SysRole sysRole) {
+              Boolean updated=sysRoleService.modifySysRole(sysRole);
+             return Result.handle(updated);
+         }
+
+         @ApiOperation(value = "删除/批量角色信息")
+         @DeleteMapping
+         @PreAuthorize("hasAuthority('sys:role:delete')")
+         public Result<String> removeSysRole(@RequestBody List<Long> roleIdlist) {
+             Boolean res=sysRoleService.removeSysRolelistByIds(roleIdlist);
+             return Result.handle(res);
+         }
 }

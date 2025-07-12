@@ -82,4 +82,40 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         }
         return sysRole;
     }
+
+    @Override
+    @Transactional
+    @CacheEvict(key= ManagerConstants.SYS_ALL_ROLE_KEY)
+    public Boolean modifySysRole(SysRole sysRole) {
+        Long roleId = sysRole.getRoleId();
+        sysRoleMenuMapper.delete(new LambdaQueryWrapper<SysRoleMenu>()
+                .eq(SysRoleMenu::getRoleId, roleId)
+        );
+
+        List<SysRoleMenu> sysRoleMenuList = new ArrayList<>();
+        List<Long> menuIdlist = sysRole.getMenuIdList();
+        if(menuIdlist != null && !menuIdlist.isEmpty()) {
+            menuIdlist.forEach(menuId -> {
+                SysRoleMenu sysRoleMenu = new SysRoleMenu();
+                sysRoleMenu.setRoleId(roleId);
+                sysRoleMenu.setMenuId(menuId);
+                sysRoleMenuList.add(sysRoleMenu);
+            });
+            // 批量插入角色菜单关系
+            sysRoleMenuService.saveBatch(sysRoleMenuList);
+        }
+
+        return sysRoleMapper.updateById(sysRole) > 0 ;
+    }
+    @Override
+    @Transactional
+    @CacheEvict(key= ManagerConstants.SYS_ALL_ROLE_KEY)
+    public Boolean removeSysRolelistByIds(List<Long> roleIdlist) {
+        // 删除角色菜单关系
+        sysRoleMenuMapper.delete(new LambdaQueryWrapper<SysRoleMenu>()
+                .in(SysRoleMenu::getRoleId, roleIdlist)
+        );
+        // 删除角色
+        return sysRoleMapper.deleteBatchIds(roleIdlist) ==roleIdlist.size();
+    }
 }
