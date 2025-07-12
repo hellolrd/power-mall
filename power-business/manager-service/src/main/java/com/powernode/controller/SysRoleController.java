@@ -3,6 +3,7 @@ package com.powernode.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.powernode.domain.SysMenu;
 import com.powernode.domain.SysRole;
 import com.powernode.model.Result;
 import com.powernode.service.SysRoleService;
@@ -78,4 +79,7 @@ public class SysRoleController {
              Boolean res=sysRoleService.removeSysRolelistByIds(roleIdlist);
              return Result.handle(res);
          }
+
+
+
 }

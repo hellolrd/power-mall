@@ -118,4 +118,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // 删除角色
         return sysRoleMapper.deleteBatchIds(roleIdlist) ==roleIdlist.size();
     }
+
+
+
+
 }

@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
@@ -45,5 +43,13 @@ public class SysMenuController {
     public Result<List<SysMenu>> loadUserInfo() {
          List<SysMenu> list = sysMenuService.queryAllSysMenuList();
         return Result.success(list);
+    }
+
+    @ApiOperation(value = "新增权限")
+    @PostMapping
+    @PreAuthorize("hasAuthority('sys:menu:save')")
+    public Result<String> saveSysMenu(@RequestBody SysMenu sysMenu) {
+        Boolean saved=sysMenuService.saveSysMenu(sysMenu);
+        return Result.handle(saved);
     }
 }
