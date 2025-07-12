@@ -14,4 +14,6 @@ public interface SysMenuService extends IService<SysMenu>{
     List<SysMenu> queryAllSysMenuList();
 
     Boolean saveSysMenu(SysMenu sysMenu);
+
+    Boolean modifySysMenu(SysMenu sysMenu);
 }

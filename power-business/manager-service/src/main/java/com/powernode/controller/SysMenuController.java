@@ -60,4 +60,12 @@ public class SysMenuController {
         SysMenu sysMenu = sysMenuService.getById(menuId);
         return Result.success(sysMenu);
     }
+
+    @ApiOperation(value = "修改菜单权限信息")
+    @PutMapping
+    @PreAuthorize("hasAuthority('sys:menu:update')")
+    public Result<String> modifySysMenu(@RequestBody SysMenu sysMenu) {
+          Boolean updated = sysMenuService.modifySysMenu(sysMenu);
+        return Result.handle(updated);
+    }
 }

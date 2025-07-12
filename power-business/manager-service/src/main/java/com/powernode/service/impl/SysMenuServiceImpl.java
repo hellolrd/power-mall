@@ -62,4 +62,14 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public Boolean saveSysMenu(SysMenu sysMenu) {
         return sysMenuMapper.insert(sysMenu) > 0;
     }
+
+    @Override
+    @CacheEvict(key = ManagerConstants.SYS_ALL_MENU_KEY)
+    public Boolean modifySysMenu(SysMenu sysMenu) {
+        Integer type= sysMenu.getType();
+        if(type==0){
+            sysMenu.setParentId(0L);
+        }
+        return sysMenuMapper.updateById(sysMenu) > 0;
+    }
 }
